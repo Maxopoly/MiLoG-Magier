@@ -26,10 +26,10 @@ public class Main {
 		}
         Configuration genConfig = new Configuration(TimeUnit.HOURS.toMillis(20), TimeUnit.HOURS.toMillis(1), TimeUnit.HOURS.toMillis(2),
 				TimeUnit.HOURS.toMillis(6), TimeUnit.HOURS.toMillis(10), TimeUnit.HOURS.toMillis(18), false,
-				TimeUnit.HOURS.toMillis(3), 2020, 3, Arrays.asList("Verschiedenes", "Windows 10", "Windows Probleme", "SCC", "Querbeet","Computer","Wartung","Software updates", "Hardware Probleme", "Citavi", "Backups", "Mitarbeiter Support"));
+				TimeUnit.HOURS.toMillis(3), 2019, 11, Arrays.asList("Verschiedenes", "Windows 10", "Dokumentation", "Beratung","Email Probleme", "Windows Probleme", "SCC", "Querbeet","Computer","Wartung","Software updates", "Hardware Probleme", "Citavi", "Backups", "Mitarbeiter Support"));
 		KITDocumentFiller docFiler = new KITDocumentFiller();
 		SimpleWorkLoadGenerator generator = new SimpleWorkLoadGenerator();
-		KITSheetConfig config = new KITSheetConfig(genConfig, "Max", "1234", "Institut für Molekularbiologie", "88,88", true);
+		KITSheetConfig config = new KITSheetConfig(genConfig, "Max Maxopoly", "", "Spaßinstitut IT", "11,99", false);
 		docFiler.fill(pdfDoc, generator, config);
 		
 		try {

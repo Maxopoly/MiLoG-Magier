@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 
 import com.github.maxopoly.milo_magier.Configuration;
@@ -20,6 +23,9 @@ public class KITDocumentFiller implements IDocumentFiller<KITSheetConfig> {
 		Configuration genConfig = config.getGeneralConfiguration();
 		if (config.isGF()) {
 			setValue(acroForm, "undefined_2", "X");
+		}
+		else {
+			setValue(acroForm, "UB", "On");
 		}
 
 		//these are correct, KIT PDFs are messed up
@@ -49,6 +55,7 @@ public class KITDocumentFiller implements IDocumentFiller<KITSheetConfig> {
 			setValue(acroForm, "hhmmRow" + counter+"_4", formatDuration(activity.getWorkingTime()));
 			counter++;
 		}
+		addImage(document, "src/main/resources/signature.png", 430, 170);
 	}
 
 	private static String formatDay(int dayOfMonth, int month, int year) {
@@ -78,6 +85,19 @@ public class KITDocumentFiller implements IDocumentFiller<KITSheetConfig> {
 		System.out.println("Setting " + key + " to " + value);
 	}
 	
+	private static void addImage(PDDocument doc, String path, int wOffset, int hOffset) {
+		PDPage page = doc.getPage(0);
+		try {
+			PDImageXObject imgObject = PDImageXObject.createFromFile(path, doc);
+			PDPageContentStream contents = new PDPageContentStream(doc, page, true, true);
+	        contents.drawImage(imgObject, wOffset, hOffset);
+	        contents.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+ 	
 	private static String formatLeadingZero(int num) {
 		if (num <= 9) {
 			return "0" + num;
