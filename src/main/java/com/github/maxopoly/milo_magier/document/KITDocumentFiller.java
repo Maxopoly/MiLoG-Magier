@@ -93,7 +93,6 @@ public class KITDocumentFiller implements IDocumentFiller<KITSheetConfig> {
 	        contents.drawImage(imgObject, wOffset, hOffset);
 	        contents.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
